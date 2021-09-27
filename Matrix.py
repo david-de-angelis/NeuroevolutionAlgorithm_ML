@@ -2,6 +2,7 @@ import numpy as np
 import math
 from random import random
 
+#Standard Matrix Functions to support operations of a neural network
 class Matrix(object):
     def __init__(self, _num_rows, _num_cols):
         self.num_rows = _num_rows

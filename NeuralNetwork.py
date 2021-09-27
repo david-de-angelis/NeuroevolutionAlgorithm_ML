@@ -2,6 +2,7 @@ import math
 import numpy as np 
 from Matrix import Matrix
 
+#Made to represent a standard Neural Network
 class NeuralNetwork(object):
     def __init__(self, _num_inputs, _num_hidden_neurons, _num_outputs, source_neural_net = None):
 
@@ -34,7 +35,7 @@ class NeuralNetwork(object):
             self.bias_output = Matrix(self.num_outputs, 1)
             self.bias_output.randomise()
 
-    def get_result(self, input_array):
+    def getResult(self, input_array):
         #Convert the input array to a Neural Network compatible Matrix
         input_matrix = Matrix.createFromArray(input_array)
 

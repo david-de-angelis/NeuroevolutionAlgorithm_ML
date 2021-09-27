@@ -1,6 +1,7 @@
 from NeuralNetwork import NeuralNetwork
 from random import random
 
+#Made for neuroevolutionary purposes
 class GeneticNeuralNetwork(NeuralNetwork):
     def __init__(self, _num_inputs, _num_hidden_neurons, _num_outputs, source_neural_net = None):
         super().__init__(_num_inputs, _num_hidden_neurons, _num_outputs, source_neural_net)
