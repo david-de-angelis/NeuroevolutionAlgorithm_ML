@@ -11,7 +11,7 @@ data_results = digits.target
 
 neural_net_population_size = 100 #100 # How many neural networks to have in each generation
 training_generations = 500 #250 # How many generations to train the neural nets for
-training_data_size = 200 #1500 # How many pieces of data we are comparing the neural nets against
+training_data_size = 100 #1500 # How many pieces of data we are comparing the neural nets against
 
 if training_data_size > n_samples - 1:
     print("The training data size that you have selected is too large")

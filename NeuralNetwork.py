@@ -47,11 +47,14 @@ class NeuralNetwork(object):
 
         hidden_layer_result_matrix = Matrix.multiplyMatricies(self.synapse_weights_input_hidden, input_matrix)
         hidden_layer_result_matrix.addMatrix(self.bias_hidden)
-        hidden_layer_result_matrix.sigmoidise()
+        #hidden_layer_result_matrix.sigmoidise()
 
         output_layer_result_matrix = Matrix.multiplyMatricies(self.synapse_weights_hidden_output, hidden_layer_result_matrix)
         output_layer_result_matrix.addMatrix(self.bias_output)
-        output_layer_result_matrix.sigmoidise()
+        #output_layer_result_matrix.sigmoidise()
+        
+
+        #ignoring the sigmoidisation due to the fact that numbers were reaching over 700, and causing a math overflow
 
         return output_layer_result_matrix.toArray()
 

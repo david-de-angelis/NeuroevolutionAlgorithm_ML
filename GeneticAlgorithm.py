@@ -7,7 +7,7 @@ neural_net_inputs = 64
 neural_net_hiddens = 14
 neural_net_outputs = 10
 
-genetic_algorithm_mutation_rate = 0.02
+genetic_algorithm_mutation_rate = 0.08
 
 #Made specifically for neuroevolutionary purposes
 class GeneticAlgorithm(object):
@@ -107,7 +107,14 @@ class GeneticAlgorithm(object):
 
         self.generation += 1
         print("Evolved to generation", str(self.generation) , "with a peak score of:", str(fittestAgent.points))
-        if self.generation <= self.max_generations:
+        if self.generation < self.max_generations and self.generation < 950:
             self.evolveGeneration()
         else:
-            fittestAgent.brain.writeToJSON()
+            text = input("Do you want to continue? (y/n): ")
+            shouldIncreaseMaxGenerations = text.lower() == "y"
+            if (shouldIncreaseMaxGenerations and self.generation < 950): #python will raise a recursion error if you try to reach 1000
+                self.max_generations += 100
+                self.evolveGeneration()
+            else:
+                print("Complete!")
+                fittestAgent.brain.writeToJSON()

@@ -41,7 +41,7 @@ class Matrix(object):
 
     # Normalize the value to be between 0 and 1
     def sigmoidise(self):
-        self.map(lambda x, i, j: 1 / (1 + math.exp(-x)))
+        self.map(lambda x, i, j: 1 / (1 + math.exp(-x/10.0)))
 
     def copy(self):
         result = Matrix.mapToNew(self, lambda x, i, j: x)
