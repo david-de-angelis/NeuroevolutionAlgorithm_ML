@@ -1,4 +1,5 @@
 import math
+import json
 import numpy as np 
 from Matrix import Matrix
 
@@ -56,3 +57,15 @@ class NeuralNetwork(object):
 
     def copy(self):
         return NeuralNetwork(None, None, None, self)
+
+    def writeToJSON(self):
+        structure = {
+            "num_inputs": str(self.num_inputs),
+            "num_hidden_neurons": str(self.num_hidden_neurons),
+            "num_outputs": str(self.num_outputs),
+            "synapse_weights_input_hidden": str(self.synapse_weights_input_hidden),
+            "synapse_weights_hidden_output": str(self.synapse_weights_hidden_output),
+            "bias_hidden": str(self.bias_hidden),
+            "bias_output": str(self.bias_output)
+        }
+        print(json.dumps(structure))

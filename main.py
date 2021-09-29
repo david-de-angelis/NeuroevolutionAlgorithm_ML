@@ -4,20 +4,21 @@ from Matrix import Matrix
 from sklearn.datasets import load_digits
 import matplotlib.pyplot as plt
 
-neural_net_population_size = 100 # How many neural networks to have in each generation
-training_generations = 250 # How many generations to train the neural nets for
-training_data_size = 1500 # How many pieces of data we are comparing the neural nets against
+digits = load_digits()
+n_samples = len(digits.images)
+data_samples = digits.images.reshape((n_samples, -1))
+data_results = digits.target
 
-def setup():
+neural_net_population_size = 100 #100 # How many neural networks to have in each generation
+training_generations = 500 #250 # How many generations to train the neural nets for
+training_data_size = 200 #1500 # How many pieces of data we are comparing the neural nets against
+
+if training_data_size > n_samples - 1:
+    print("The training data size that you have selected is too large")
+        
+def train():
     #### Arrange ####
-    digits = load_digits()
-    n_samples = len(digits.images)
-    data_samples = digits.images.reshape((n_samples, -1))
-    data_results = digits.target
     
-    if training_data_size > n_samples - 1:
-        print("The training data size that you have selected is too large")
-
     #Retrieve the first 1500 data samples and results for training
     training_data = data_samples[:training_data_size] 
     training_results = data_results[:training_data_size]
@@ -46,4 +47,4 @@ def loop():
     # copy.mutate(0.5)
     # print(copy.bias_hidden)
 
-setup()
+train()
