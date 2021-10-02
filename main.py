@@ -29,10 +29,13 @@ class App(object):
             self.data_samples = digits.images.reshape((n_samples, -1))
             self.data_results = digits.target
 
-            self.training_data_size = 100 
-            self.testing_data_size = 100
+            #Scaling the values from being between 0-16 to 0-1.
+            self.data_samples = self.data_samples / 16
+
+            self.training_data_size = 150 
+            self.testing_data_size = 150
             self.neural_net_population_size = 100
-            self.training_generations = 100 
+            self.training_generations = 500 
 
             self.create_brain = lambda: GeneticNeuralNetwork(64, 14, 10)
 
@@ -50,7 +53,7 @@ class App(object):
             self.create_brain = lambda: GeneticNeuralNetwork(4, 6, 3)
 
         else:
-            print("ERR: dataset" + "'" + dataset_string + "' was not recognised.")
+            print("ERR: dataset '" + dataset_string + "' was not recognised.")
             exit()
 
         #re-arranges the data_samples and data_results in unison, so there are no patterns in the order of data (e.g. in the iris dataset)
@@ -100,7 +103,7 @@ class App(object):
                 "| Population max training accuracy:", str(int(population_fittest_agent_points/self.training_data_size * 100)) + "%")
 
             if ga.generation >= self.training_generations:
-                text = input("Do you want to continue evolving the population (+100 generations)? (y/n): ")
+                text = input("Do you want to continue training the population (+100 generations)? (y/n): ")
                 shouldIncreaseMaxGenerations = text.lower() == "y"
                 if (shouldIncreaseMaxGenerations):
                     self.training_generations += 100
