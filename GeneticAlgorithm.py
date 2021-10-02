@@ -7,14 +7,13 @@ neural_net_inputs = 64
 neural_net_hiddens = 14
 neural_net_outputs = 10
 
-genetic_algorithm_mutation_rate = 0.08
+genetic_algorithm_mutation_rate = 0.1
 
 #Made specifically for neuroevolutionary purposes
 class GeneticAlgorithm(object):
-    def __init__(self, _population_size, _max_generations, _training_sets_data, _training_data_sets_results):
+    def __init__(self, _population_size, _training_sets_data, _training_data_sets_results):
         self.generation = 0
         self.population_size = _population_size
-        self.max_generations = _max_generations
         self.agents = []
 
         self.training_data_sets = _training_sets_data
@@ -26,12 +25,6 @@ class GeneticAlgorithm(object):
             #assigning the neural net as the brain of the agent
             agent = Agent(i, neural_net)
             self.agents.append(agent)
-
-    def evaluateResponse(self, response):
-        #response is made up of 10 results, (numbers 0 through 9)
-        max_value = max(response) #getting the nn output with the greatest score
-        max_value_index = response.index(max_value)
-        return max_value_index #Each number corresponds to it's index in this digit recognition algorithm
 
     def runEnvironment(self):
         total_score_sum = 0
@@ -48,7 +41,7 @@ class GeneticAlgorithm(object):
                         print("Expected:", neural_net_inputs)
 
                 raw_result = agent.brain.getResult(training_data)
-                result = self.evaluateResponse(raw_result)
+                result = GeneticAlgorithm.evaluateResponse(raw_result)
 
                 actual_result = self.training_data_sets_results[i]
                 #print("Guess:", result, "Actual:", actual_result)
@@ -104,17 +97,27 @@ class GeneticAlgorithm(object):
             self.performSelection()
 
         fittestAgent = self.runEnvironment()
-
         self.generation += 1
-        print("Evolved to generation", str(self.generation) , "with a peak score of:", str(fittestAgent.points))
-        if self.generation < self.max_generations and self.generation < 950:
-            self.evolveGeneration()
-        else:
-            text = input("Do you want to continue? (y/n): ")
-            shouldIncreaseMaxGenerations = text.lower() == "y"
-            if (shouldIncreaseMaxGenerations and self.generation < 950): #python will raise a recursion error if you try to reach 1000
-                self.max_generations += 100
-                self.evolveGeneration()
-            else:
-                print("Complete!")
-                fittestAgent.brain.writeToJSON()
+
+        return fittestAgent;
+
+        #if self.generation < self.max_generations and self.generation < 950:
+        #    self.evolveGeneration()
+        # else:
+        #     text = input("Do you want to continue? (y/n): ")
+        #     shouldIncreaseMaxGenerations = text.lower() == "y"
+        #     if (shouldIncreaseMaxGenerations and self.generation < 950): #python will raise a recursion error if you try to reach 1000
+        #         self.max_generations += 100
+        #         self.evolveGeneration()
+        #     else:
+        #         print("Complete!")
+        #         fittestAgent.brain.writeToJSON()
+
+    ##################### STATIC METHODS  #####################
+
+    @staticmethod
+    def evaluateResponse(response):
+        #response is made up of 10 results, (numbers 0 through 9)
+        max_value = max(response) #getting the nn output with the greatest score
+        max_value_index = response.index(max_value)
+        return max_value_index #Each number corresponds to it's index in this digit recognition algorithm
