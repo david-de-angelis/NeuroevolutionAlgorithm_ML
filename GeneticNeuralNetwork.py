@@ -17,7 +17,7 @@ class GeneticNeuralNetwork(NeuralNetwork):
         new_value = value + offset
         return new_value
 
-    #Gives a 10% chance of mutating any given value (from connection weights and layer biases)
+    #Gives a x% chance of mutating any given value (from connection weights and layer biases)
     def mutate(self, mutationRate):
         if mutationRate > 1 or mutationRate < 0:
             print("Mutation Rate should be betwen 0 and 1")

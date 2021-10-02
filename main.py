@@ -33,9 +33,9 @@ class App(object):
             self.data_samples = self.data_samples / 16
 
             self.training_data_size = 150 
-            self.testing_data_size = 150
+            self.testing_data_size = 100
             self.neural_net_population_size = 100
-            self.training_generations = 500 
+            self.training_generations = 100 
 
             self.create_brain = lambda: GeneticNeuralNetwork(64, 14, 10)
 
